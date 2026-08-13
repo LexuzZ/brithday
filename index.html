@@ -1,0 +1,1728 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Untuk Ami ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500;600&family=Dancing+Script:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      :root {
+        --pink: #ff4f91;
+        --pink2: #ff216d;
+        --pink-soft: #ff9abb;
+        --rose: #ffccd9;
+        --deep: #09050a;
+        --card-bg: rgba(255, 255, 255, 0.045);
+        --card-border: rgba(255, 255, 255, 0.09);
+        --text-muted: #bcaeb8;
+        --text-dim: #867784;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: var(--deep);
+        color: #fff;
+        overflow-x: hidden;
+      }
+      body.locked {
+        overflow: hidden;
+      }
+
+      /* ── BG ── */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -5;
+        background:
+          radial-gradient(
+            circle at 20% 20%,
+            rgba(255, 61, 128, 0.15),
+            transparent 35%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(180, 50, 255, 0.12),
+            transparent 35%
+          ),
+          var(--deep);
+      }
+
+      /* ── PARTICLE CANVAS ── */
+      #particleCanvas {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* ══════════════════════════════
+   QR PAGE
+══════════════════════════════ */
+      #qrPage {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 25px;
+        background:
+          radial-gradient(
+            circle at center,
+            rgba(255, 70, 130, 0.12),
+            transparent 45%
+          ),
+          var(--deep);
+        transition:
+          opacity 0.8s ease,
+          visibility 0.8s ease;
+      }
+      #qrPage.hide {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .qr-card {
+        width: 100%;
+        max-width: 440px;
+        text-align: center;
+        padding: 40px 28px 35px;
+        border-radius: 32px;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        backdrop-filter: blur(24px);
+        box-shadow:
+          0 40px 100px rgba(0, 0, 0, 0.5),
+          0 0 0 1px rgba(255, 80, 145, 0.06) inset;
+        animation: fadeUp 0.9s ease forwards;
+      }
+
+      .qr-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(255, 79, 145, 0.12);
+        border: 1px solid rgba(255, 79, 145, 0.25);
+        border-radius: 100px;
+        padding: 5px 14px;
+        color: var(--pink-soft);
+        font-size: 10px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+      }
+
+      .qr-card h1 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(34px, 8vw, 46px);
+        line-height: 1.1;
+        margin-bottom: 14px;
+      }
+
+      .qr-card > p {
+        color: var(--text-muted);
+        font-size: 13px;
+        line-height: 1.85;
+        margin-bottom: 28px;
+      }
+
+      .qr-box {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto 22px;
+        padding: 12px;
+        border-radius: 20px;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        position: relative;
+      }
+      .qr-box::before {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        border-radius: 22px;
+        background: linear-gradient(135deg, var(--pink), #a855f7);
+        z-index: -1;
+        opacity: 0.5;
+      }
+      #qrcode canvas,
+      #qrcode img {
+        max-width: 100%;
+        height: auto !important;
+      }
+
+      .qr-note {
+        font-size: 11px;
+        color: var(--text-dim);
+        margin-bottom: 22px;
+      }
+
+      .qr-open-btn {
+        border: none;
+        cursor: pointer;
+        padding: 14px 30px;
+        border-radius: 100px;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        color: #fff;
+        background: linear-gradient(135deg, var(--pink), var(--pink2));
+        box-shadow: 0 14px 40px rgba(255, 33, 109, 0.32);
+        transition: 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .qr-open-btn::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.15),
+          transparent
+        );
+        opacity: 0;
+        transition: 0.3s;
+      }
+      .qr-open-btn:hover {
+        transform: translateY(-3px) scale(1.03);
+      }
+      .qr-open-btn:hover::before {
+        opacity: 1;
+      }
+
+      /* ══════════════════════════════
+   OPENING
+══════════════════════════════ */
+      #opening {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 25px;
+        background:
+          radial-gradient(
+            circle at center,
+            rgba(255, 60, 130, 0.15),
+            transparent 45%
+          ),
+          var(--deep);
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.8s ease,
+          visibility 0.8s ease;
+      }
+      #opening.show {
+        opacity: 1;
+        visibility: visible;
+      }
+      #opening.hide {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .opening-content {
+        width: 100%;
+        max-width: 540px;
+      }
+
+      .opening-emoji {
+        font-size: 72px;
+        margin-bottom: 22px;
+        animation: heartbeat 1.5s infinite;
+        display: block;
+      }
+
+      .opening-content h2 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(44px, 10vw, 70px);
+        line-height: 1;
+        margin-bottom: 16px;
+      }
+
+      .opening-sub {
+        color: var(--text-muted);
+        font-size: 14px;
+        line-height: 1.85;
+        margin-bottom: 30px;
+      }
+
+      .start-btn {
+        border: none;
+        cursor: pointer;
+        padding: 16px 36px;
+        border-radius: 100px;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        color: #fff;
+        background: linear-gradient(135deg, var(--pink), var(--pink2));
+        box-shadow: 0 16px 44px rgba(255, 33, 109, 0.32);
+        transition: 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .start-btn::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: 0.5s;
+      }
+      .start-btn:hover {
+        transform: scale(1.06);
+      }
+      .start-btn:hover::after {
+        left: 100%;
+      }
+
+      /* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+      .hero {
+        position: relative;
+        z-index: 1;
+        min-height: 100svh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+        text-align: center;
+      }
+
+      .hero-glow {
+        position: absolute;
+        width: 70vmax;
+        height: 70vmax;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 60, 130, 0.1),
+          transparent 65%
+        );
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: glowPulse 5s ease-in-out infinite;
+      }
+
+      .hero-content {
+        max-width: 960px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 79, 145, 0.1);
+        border: 1px solid rgba(255, 79, 145, 0.22);
+        border-radius: 100px;
+        padding: 7px 18px;
+        color: var(--pink-soft);
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 28px;
+        animation: fadeUp 0.8s 0.2s both;
+      }
+
+      .hero h1 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(56px, 14vw, 140px);
+        line-height: 0.9;
+        margin-bottom: 32px;
+        animation: fadeUp 0.8s 0.4s both;
+      }
+
+      .gradient-text {
+        background: linear-gradient(90deg, #fff, var(--pink), #fff);
+        background-size: 200%;
+        -webkit-background-clip: text;
+        color: transparent;
+        background-clip: text;
+        animation: gradientMove 4s linear infinite;
+      }
+
+      .hero-name {
+        display: block;
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-weight: 700;
+        -webkit-text-fill-color: transparent;
+        background: linear-gradient(135deg, var(--rose), var(--pink-soft));
+        -webkit-background-clip: text;
+        background-clip: text;
+      }
+
+      .hero-sub {
+        max-width: 640px;
+        margin: auto;
+        color: var(--text-muted);
+        line-height: 1.9;
+        font-size: 14px;
+        animation: fadeUp 0.8s 0.6s both;
+        min-height: 3.8em;
+      }
+
+      .hero-scroll {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        animation: fadeIn 1s 2.5s both;
+        cursor: pointer;
+        transition: opacity 0.3s;
+      }
+      .hero-scroll-label {
+        font-size: 9px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.25);
+      }
+      .hero-scroll-line {
+        width: 1px;
+        height: 44px;
+        background: linear-gradient(to bottom, var(--pink), transparent);
+        animation: scrollLine 2s ease-in-out infinite;
+      }
+
+      /* ══════════════════════════════
+   SECTIONS
+══════════════════════════════ */
+      section {
+        padding: 100px 20px;
+        position: relative;
+        z-index: 1;
+      }
+      .container {
+        width: 100%;
+        max-width: 1000px;
+        margin: auto;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 55px;
+      }
+      .section-badge {
+        display: inline-block;
+        color: var(--pink);
+        font-size: 10px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+        position: relative;
+      }
+      .section-badge::before,
+      .section-badge::after {
+        content: "";
+        display: inline-block;
+        width: 24px;
+        height: 1px;
+        background: var(--pink);
+        opacity: 0.5;
+        vertical-align: middle;
+        margin: 0 10px;
+      }
+      .section-title h2 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(38px, 8vw, 65px);
+      }
+
+      /* ══════════════════════════════
+   LOVE LETTER
+══════════════════════════════ */
+      .letter {
+        max-width: 780px;
+        margin: auto;
+        padding: 50px;
+        border-radius: 30px;
+        background: linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.07),
+          rgba(255, 255, 255, 0.02)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(16px);
+        position: relative;
+        overflow: hidden;
+      }
+      .letter::before {
+        content: "";
+        position: absolute;
+        top: -80px;
+        right: -80px;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 79, 145, 0.12),
+          transparent 70%
+        );
+        border-radius: 50%;
+        pointer-events: none;
+      }
+      .letter-quote {
+        font-family: "DM Serif Display", serif;
+        font-size: 5rem;
+        color: rgba(255, 79, 145, 0.12);
+        line-height: 1;
+        margin-bottom: -1rem;
+        display: block;
+      }
+      .letter p {
+        color: #d1c4cc;
+        font-size: 14px;
+        line-height: 2.05;
+        margin-bottom: 18px;
+      }
+      .letter p strong {
+        color: var(--pink-soft);
+      }
+      .letter-signature {
+        margin-top: 32px;
+        font-family: "Dancing Script", cursive;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--pink);
+      }
+
+      /* ══════════════════════════════
+   GALLERY
+══════════════════════════════ */
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+      }
+      .photo {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 3/4;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #2a0e1a, #1a0825);
+        border: 7px solid #fff;
+        box-shadow: 0 24px 55px rgba(0, 0, 0, 0.4);
+        transform: rotate(-2.5deg);
+        transition: 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .photo:nth-child(2) {
+        transform: rotate(2deg);
+      }
+      .photo:nth-child(3) {
+        transform: rotate(-1.2deg);
+      }
+      .photo:hover {
+        transform: rotate(0) scale(1.05);
+        z-index: 2;
+        box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+      }
+      .photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: 0.4s;
+      }
+      .photo:hover img {
+        transform: scale(1.04);
+      }
+
+      /* photo placeholder */
+      .photo-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-align: center;
+        padding: 1rem;
+      }
+      .photo-placeholder span {
+        font-size: 2.5rem;
+        opacity: 0.3;
+      }
+
+      /* ══════════════════════════════
+   COUNTER
+══════════════════════════════ */
+      .counter-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+      .counter-box {
+        padding: 38px 12px;
+        text-align: center;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        position: relative;
+        overflow: hidden;
+        transition: 0.35s;
+      }
+      .counter-box::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 79, 145, 0.06),
+          transparent
+        );
+        opacity: 0;
+        transition: 0.35s;
+      }
+      .counter-box:hover::before {
+        opacity: 1;
+      }
+      .counter-box:hover {
+        transform: translateY(-4px);
+        border-color: rgba(255, 79, 145, 0.2);
+      }
+      .counter-box strong {
+        display: block;
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(36px, 7vw, 52px);
+        background: linear-gradient(135deg, #fff, var(--pink-soft));
+        -webkit-background-clip: text;
+        color: transparent;
+        background-clip: text;
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+      .counter-box span {
+        color: var(--text-dim);
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      /* ══════════════════════════════
+   WISHES MARQUEE
+══════════════════════════════ */
+      .marquee-wrap {
+        overflow: hidden;
+        padding: 0 0 10px;
+      }
+      .marquee-track {
+        display: flex;
+        gap: 14px;
+        animation: marqueeScroll 28s linear infinite;
+        width: max-content;
+      }
+      .marquee-track:hover {
+        animation-play-state: paused;
+      }
+      .wish-pill {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 79, 145, 0.2);
+        border-radius: 100px;
+        padding: 10px 22px;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        transition: 0.3s;
+        cursor: default;
+      }
+      .wish-pill:hover {
+        background: rgba(255, 79, 145, 0.1);
+        border-color: var(--pink);
+      }
+      .wish-pill-icon {
+        font-size: 1.1rem;
+      }
+      .wish-pill-text {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.65);
+        font-family: "DM Serif Display", serif;
+      }
+
+      /* ══════════════════════════════
+   FINAL
+══════════════════════════════ */
+      .final {
+        min-height: 85svh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+      .final-glow {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at 50% 50%,
+          rgba(255, 60, 130, 0.1),
+          transparent 65%
+        );
+        pointer-events: none;
+      }
+      .final-content {
+        max-width: 720px;
+        position: relative;
+        z-index: 1;
+      }
+      .final-heart {
+        font-size: 72px;
+        margin-bottom: 28px;
+        animation: heartbeat 1.5s infinite;
+        display: block;
+      }
+      .final h2 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(42px, 9vw, 82px);
+        margin-bottom: 28px;
+        line-height: 1.05;
+      }
+      .final p {
+        color: #c2b4bd;
+        line-height: 2;
+        margin-bottom: 38px;
+        font-size: 14px;
+      }
+      .final p strong {
+        color: var(--pink-soft);
+      }
+
+      .surprise-btn {
+        border: none;
+        cursor: pointer;
+        padding: 16px 32px;
+        border-radius: 100px;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        background: #fff;
+        color: #111;
+        transition: 0.35s;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+      .surprise-btn::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, var(--pink), var(--pink2));
+        opacity: 0;
+        transition: 0.35s;
+      }
+      .surprise-btn:hover {
+        color: #fff;
+        transform: scale(1.05);
+        box-shadow: 0 20px 50px rgba(255, 33, 109, 0.3);
+      }
+      .surprise-btn:hover::before {
+        opacity: 1;
+      }
+      .surprise-btn span {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* ══════════════════════════════
+   LOVE MODAL
+══════════════════════════════ */
+      .love-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 100000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.5s ease,
+          visibility 0.5s ease;
+      }
+      .love-modal.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .love-modal-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(4, 1, 6, 0.82);
+        backdrop-filter: blur(14px);
+      }
+
+      .love-modal-content {
+        position: relative;
+        width: 100%;
+        max-width: 480px;
+        padding: 50px 35px 35px;
+        text-align: center;
+        border-radius: 32px;
+        background: linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.1),
+          rgba(255, 255, 255, 0.03)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.11);
+        box-shadow:
+          0 50px 140px rgba(0, 0, 0, 0.65),
+          0 0 100px rgba(255, 60, 130, 0.12);
+        backdrop-filter: blur(28px);
+        transform: translateY(40px) scale(0.92);
+        transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .love-modal.active .love-modal-content {
+        transform: translateY(0) scale(1);
+      }
+
+      .love-modal-close {
+        position: absolute;
+        top: 16px;
+        right: 20px;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.07);
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 22px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .love-modal-close:hover {
+        background: rgba(255, 255, 255, 0.14);
+        color: #fff;
+        transform: rotate(90deg);
+      }
+
+      .modal-heart {
+        font-size: 68px;
+        margin-bottom: 20px;
+        animation: heartbeat 1.5s infinite;
+        display: block;
+      }
+      .modal-badge {
+        color: var(--pink);
+        font-size: 10px;
+        letter-spacing: 4px;
+        margin-bottom: 14px;
+        display: block;
+      }
+      .love-modal-content h2 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(36px, 8vw, 54px);
+        line-height: 1.05;
+        margin-bottom: 24px;
+      }
+      .modal-divider {
+        width: 55px;
+        height: 1px;
+        margin: 0 auto 26px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--pink),
+          transparent
+        );
+      }
+      .love-modal-content p {
+        color: #c8bac3;
+        font-size: 13px;
+        line-height: 1.95;
+        margin-bottom: 14px;
+      }
+      .modal-highlight {
+        color: var(--pink-soft) !important;
+        font-size: 15px !important;
+        font-weight: 500;
+        margin-top: 22px !important;
+      }
+      .modal-sig {
+        margin-top: 22px;
+        font-family: "Dancing Script", cursive;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text-dim);
+      }
+      .modal-btn {
+        margin-top: 30px;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 100px;
+        background: linear-gradient(135deg, var(--pink), var(--pink2));
+        color: #fff;
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 12px 35px rgba(255, 33, 109, 0.28);
+        transition: 0.3s;
+      }
+      .modal-btn:hover {
+        transform: translateY(-2px) scale(1.04);
+        box-shadow: 0 18px 45px rgba(255, 33, 109, 0.38);
+      }
+
+      /* ══════════════════════════════
+   TOAST NOTIFICATION
+══════════════════════════════ */
+      #toastContainer {
+        position: fixed;
+        bottom: 1.8rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 200000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.7rem;
+        pointer-events: none;
+      }
+      .toast {
+        background: rgba(14, 5, 10, 0.92);
+        border: 1px solid rgba(255, 79, 145, 0.35);
+        border-radius: 100px;
+        padding: 0.8rem 1.6rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        backdrop-filter: blur(24px);
+        box-shadow:
+          0 10px 40px rgba(0, 0, 0, 0.45),
+          0 0 30px rgba(255, 60, 130, 0.08) inset;
+        animation: toastIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        pointer-events: all;
+        min-width: 240px;
+        max-width: 88vw;
+        position: relative;
+        overflow: hidden;
+      }
+      .toast.hide {
+        animation: toastOut 0.4s ease forwards;
+      }
+      .toast-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        background: linear-gradient(135deg, var(--pink), var(--pink2));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.95rem;
+      }
+      .toast-body {
+        flex: 1;
+      }
+      .toast-title {
+        font-family: "DM Serif Display", serif;
+        font-size: 0.9rem;
+        color: #fff;
+        line-height: 1.2;
+      }
+      .toast-sub {
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.45);
+        margin-top: 2px;
+      }
+      .toast-x {
+        background: none;
+        border: none;
+        color: rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        font-size: 1rem;
+        padding: 0;
+        flex-shrink: 0;
+        transition: 0.2s;
+      }
+      .toast-x:hover {
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .toast-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--pink), var(--pink-soft));
+        border-radius: 0 0 0 100px;
+        animation: drainBar 4s linear forwards;
+      }
+
+      /* ══════════════════════════════
+   FLOATING HEARTS
+══════════════════════════════ */
+      .floating-heart {
+        position: fixed;
+        bottom: -40px;
+        pointer-events: none;
+        z-index: 50;
+        animation: floatUp linear forwards;
+      }
+      @keyframes floatUp {
+        from {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0;
+        }
+        15% {
+          opacity: 1;
+        }
+        to {
+          transform: translateY(-115vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* ══════════════════════════════
+   CONFETTI
+══════════════════════════════ */
+      .confetti {
+        position: fixed;
+        top: -20px;
+        width: 8px;
+        height: 13px;
+        z-index: 99999;
+        pointer-events: none;
+        animation: confettiFall linear forwards;
+      }
+      @keyframes confettiFall {
+        to {
+          transform: translateY(115vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
+
+      /* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+      footer {
+        position: relative;
+        z-index: 1;
+        padding: 32px;
+        text-align: center;
+        color: var(--text-dim);
+        font-size: 11px;
+        border-top: 1px solid rgba(255, 255, 255, 0.04);
+      }
+
+      /* ══════════════════════════════
+   KEYFRAMES
+══════════════════════════════ */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(22px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes heartbeat {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.16);
+        }
+      }
+      @keyframes glowPulse {
+        0%,
+        100% {
+          opacity: 0.6;
+          transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1.1);
+        }
+      }
+      @keyframes gradientMove {
+        from {
+          background-position: 0%;
+        }
+        to {
+          background-position: 200%;
+        }
+      }
+      @keyframes scrollLine {
+        0%,
+        100% {
+          transform: scaleY(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scaleY(0.55);
+          opacity: 0.35;
+        }
+      }
+      @keyframes marqueeScroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+      @keyframes toastIn {
+        from {
+          opacity: 0;
+          transform: translateY(14px) scale(0.96);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+      @keyframes toastOut {
+        from {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+        to {
+          opacity: 0;
+          transform: translateY(10px) scale(0.96);
+        }
+      }
+      @keyframes drainBar {
+        from {
+          width: 100%;
+        }
+        to {
+          width: 0;
+        }
+      }
+
+      /* ══════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════ */
+      .reveal {
+        opacity: 0;
+        transform: translateY(32px);
+        transition:
+          opacity 0.85s ease,
+          transform 0.85s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-left {
+        opacity: 0;
+        transform: translateX(-32px);
+        transition:
+          opacity 0.85s ease,
+          transform 0.85s ease;
+      }
+      .reveal-left.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .reveal-right {
+        opacity: 0;
+        transform: translateX(32px);
+        transition:
+          opacity 0.85s ease,
+          transform 0.85s ease;
+      }
+      .reveal-right.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      /* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+      @media (max-width: 700px) {
+        section {
+          padding: 75px 18px;
+        }
+        .gallery {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+        }
+        .gallery .photo:last-child {
+          grid-column: span 2;
+          width: 58%;
+          margin: 0 auto;
+        }
+        .letter {
+          padding: 28px 22px;
+        }
+        .counter-grid {
+          gap: 8px;
+        }
+        .counter-box {
+          padding: 26px 8px;
+        }
+        .love-modal-content {
+          padding: 40px 22px 28px;
+          border-radius: 26px;
+        }
+      }
+      @media (max-width: 420px) {
+        .counter-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body class="locked">
+    <canvas id="particleCanvas"></canvas>
+    <div id="toastContainer"></div>
+
+    <!-- ══ QR PAGE ══ -->
+    <div id="qrPage">
+      <div class="qr-card">
+        <div class="qr-badge">✦ &nbsp; A special surprise &nbsp; ✦</div>
+        <h1>Ada sesuatu<br />untuk kamu ❤️</h1>
+        <p>
+          Scan QR Code ini menggunakan kamera HP untuk membuka pesan spesial
+          yang sudah disiapkan khusus untukmu, Emi Zakiatunnisa.
+        </p>
+        <div class="qr-box"><div id="qrcode"></div></div>
+        <p class="qr-note">Scan me with love ❤️</p>
+        <button class="qr-open-btn" onclick="openFromQr()">
+          Buka Sekarang ❤️
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ OPENING ══ -->
+    <div id="opening">
+      <div class="opening-content">
+        <span class="opening-emoji">❤️</span>
+        <h2>Untuk Kamu,<br />Emi Zakiatunnisa</h2>
+        <p class="opening-sub">
+          Jangan buru-buru...<br />Ada sesuatu yang ingin aku sampaikan dengan
+          sepenuh hati.
+        </p>
+        <button class="start-btn" onclick="startExperience()">
+          Buka Kejutan ❤️
+        </button>
+      </div>
+    </div>
+
+    <audio id="music" loop><source src="music.mp3" type="audio/mpeg" /></audio>
+
+    <!-- ══ HERO ══ -->
+    <section class="hero">
+      <div class="hero-glow"></div>
+      <div class="hero-content">
+        <div class="hero-badge">
+          ✦ &nbsp; Today is your special day &nbsp; ✦
+        </div>
+        <h1>
+          <span class="gradient-text">Happy<br />Birthday</span>
+          <span class="hero-name">Emi Zakiatunnisa</span>
+        </h1>
+        <p class="hero-sub" id="typingText"></p>
+      </div>
+      <div
+        class="hero-scroll"
+        onclick="
+          document
+            .getElementById('letter-sec')
+            .scrollIntoView({ behavior: 'smooth' })
+        "
+      >
+        <span class="hero-scroll-label">scroll</span>
+        <div class="hero-scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ══ LOVE LETTER ══ -->
+    <section id="letter-sec">
+      <div class="container">
+        <div class="section-title reveal">
+          <span class="section-badge">A little message</span>
+          <h2>Untuk Emi Zakiatunnisa ❤️</h2>
+        </div>
+        <div class="letter reveal">
+          <span class="letter-quote">❝</span>
+          <p>Hai Emi Zakiatunnisa ❤️</p>
+          <p>
+            Hari ini adalah hari yang sangat spesial, karena hari ini seseorang
+            yang sangat berarti dalam hidupku bertambah usia. Aku ingin kamu
+            tahu betapa berartinya kehadiranmu.
+          </p>
+          <p>
+            Selamat ulang tahun untuk kamu. Semoga di umur yang baru ini, semua
+            hal baik selalu datang kepadamu — kesehatan, kebahagiaan, dan semua
+            impian yang sudah kamu rawat dengan sabar.
+          </p>
+          <p>
+            Terima kasih karena sudah hadir dalam hidupku. Terima kasih untuk
+            semua cerita, tawa, perhatian, dan kenangan indah yang sudah kita
+            buat bersama. Setiap momennya menjadi bagian dari hari-hari
+            terbaiku.
+          </p>
+          <p>
+            Aku mungkin bukan seseorang yang sempurna. Tapi aku ingin terus
+            belajar menjadi seseorang yang bisa membuat kamu merasa dicintai,
+            dihargai, dan bahagia setiap harinya.
+          </p>
+          <p><strong>Happy Birthday, Emi Zakiatunnisa. ❤️</strong></p>
+          <div class="letter-signature">With all my love,<br />Aku ❤️</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ GALLERY ══ -->
+    <section>
+      <div class="container">
+        <div class="section-title reveal">
+          <span class="section-badge">Our memories</span>
+          <h2>Cerita Kita 📸</h2>
+        </div>
+        <div class="gallery">
+          <div class="photo reveal-left">
+            <div class="photo-placeholder">
+              <span>📷</span>Foto 1<br /><small style="opacity: 0.5"
+                ><img src="gambar1.jpeg"
+              /></small>
+            </div>
+          </div>
+          <div class="photo reveal">
+            <div class="photo-placeholder">
+              <span>📷</span>Foto 2<br /><small style="opacity: 0.5"
+                ><img src="gambar2.jpeg"
+              /></small>
+            </div>
+          </div>
+          <div class="photo reveal-right">
+            <div class="photo-placeholder">
+              <span>📷</span>Foto 3<br /><small style="opacity: 0.5"
+                ><img src="gambar3.jpeg"
+              /></small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ COUNTER ══ -->
+    <section>
+      <div class="container">
+        <div class="section-title reveal">
+          <span class="section-badge">Since the day we started</span>
+          <h2>Perjalanan Kita ❤️</h2>
+        </div>
+        <div class="counter-grid reveal">
+          <div class="counter-box">
+            <strong id="cnt-days">0</strong><span>Hari</span>
+          </div>
+          <div class="counter-box">
+            <strong id="cnt-hours">0</strong><span>Jam</span>
+          </div>
+          <div class="counter-box">
+            <strong id="cnt-mins">0</strong><span>Menit</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ WISHES MARQUEE ══ -->
+    <section style="padding: 60px 0">
+      <div
+        class="section-title reveal"
+        style="margin-bottom: 30px; padding: 0 20px"
+      >
+        <span class="section-badge">Doa & Harapan</span>
+        <h2>Untuk Hari-harimu 🌸</h2>
+      </div>
+      <div class="marquee-wrap">
+        <div class="marquee-track" id="marqueeTrack"></div>
+      </div>
+    </section>
+
+    <!-- ══ FINAL ══ -->
+    <section class="final">
+      <div class="final-glow"></div>
+      <div class="final-content reveal">
+        <span class="final-heart">💗</span>
+        <h2>One Last Thing...</h2>
+        <p>
+          Dari semua hal yang bisa aku berikan kepadamu hari ini,<br /><br />
+          aku berharap satu hal...<br /><br />
+          <strong
+            >semoga aku tetap bisa menjadi bagian dari cerita hidupmu.
+            ❤️</strong
+          ><br /><br />
+          Happy Birthday, Ami.
+        </p>
+        <button class="surprise-btn" onclick="finalSurprise()">
+          <span>Klik untuk kejutan terakhir 💝</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ══ LOVE MODAL ══ -->
+    <div id="loveModal" class="love-modal">
+      <div class="love-modal-overlay" onclick="closeLoveModal()"></div>
+      <div class="love-modal-content">
+        <button class="love-modal-close" onclick="closeLoveModal()">×</button>
+        <span class="modal-heart">❤️</span>
+        <span class="modal-badge">FROM MY HEART</span>
+        <h2>Happy Birthday,<br />Emi ❤️</h2>
+        <div class="modal-divider"></div>
+        <p>Terima kasih sudah menjadi bagian dari hidupku.</p>
+        <p>
+          Semoga di usia yang baru ini, selalu ada kebahagiaan, kesehatan, dan
+          banyak alasan untuk tersenyum setiap harinya.
+        </p>
+        <p class="modal-highlight">
+          Aku sayang kamu.<br />Hari ini, besok, dan seterusnya. ❤️
+        </p>
+        <div class="modal-sig">— With all my love —</div>
+        <button class="modal-btn" onclick="closeLoveModal()">
+          Peluk virtual dulu 🤍
+        </button>
+      </div>
+    </div>
+
+    <footer>Made with ❤️ especially for Emi Zakiatunnisa.</footer>
+
+    <script>
+      /* ══ CONFIG ══ */
+      const WEBSITE_URL = "https://your-website-url.com";
+      const RELATION_DATE = new Date("2026-02-14T00:00:00"); // ← ganti tanggal pacaran
+      const BIRTHDAY_TEXT =
+        "Hari ini bukan sekadar hari ulang tahun biasa. Hari ini adalah hari ketika seseorang yang begitu berarti bagiku dilahirkan ke dunia ini. ❤️";
+
+      /* ══ QR ══ */
+      window.addEventListener("load", () => {
+        new QRCode(document.getElementById("qrcode"), {
+          text: WEBSITE_URL,
+          width: 175,
+          height: 175,
+          colorDark: "#111",
+          colorLight: "#fff",
+          correctLevel: QRCode.CorrectLevel.H,
+        });
+      });
+
+      /* ══ PARTICLE CANVAS ══ */
+      const canvas = document.getElementById("particleCanvas");
+      const ctx = canvas.getContext("2d");
+      let W,
+        H,
+        particles = [];
+
+      function resizeCanvas() {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+      }
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+
+      const P_COLORS = ["#ff4f91", "#ffccd9", "#ff9abb", "#a855f7", "#ffd166"];
+      const P_EMOJIS = ["❤️", "🌸", "💕", "✨", "💗"];
+
+      function mkParticle(init) {
+        const kind =
+          Math.random() < 0.55
+            ? "petal"
+            : Math.random() < 0.5
+              ? "glitter"
+              : "emoji";
+        return {
+          x: init?.x ?? Math.random() * W,
+          y: init?.y ?? (init ? -20 : Math.random() * H),
+          size:
+            kind === "petal"
+              ? Math.random() * 7 + 3
+              : kind === "glitter"
+                ? Math.random() * 2 + 1
+                : Math.random() * 10 + 10,
+          color: P_COLORS[Math.floor(Math.random() * P_COLORS.length)],
+          emoji: P_EMOJIS[Math.floor(Math.random() * P_EMOJIS.length)],
+          vy: Math.random() * 0.7 + 0.3,
+          vx: (Math.random() - 0.5) * 0.45,
+          angle: Math.random() * Math.PI * 2,
+          spin: (Math.random() - 0.5) * 0.025,
+          alpha:
+            kind === "glitter"
+              ? Math.random() * 0.8 + 0.2
+              : Math.random() * 0.35 + 0.1,
+          kind,
+        };
+      }
+
+      for (let i = 0; i < 90; i++) particles.push(mkParticle({}));
+
+      function drawParticle(p) {
+        ctx.save();
+        ctx.globalAlpha = p.alpha;
+        if (p.kind === "emoji") {
+          ctx.font = `${p.size}px serif`;
+          ctx.fillText(p.emoji, p.x, p.y);
+        } else {
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.angle);
+          ctx.fillStyle = p.color;
+          if (p.kind === "petal") {
+            ctx.beginPath();
+            ctx.ellipse(0, 0, p.size * 0.38, p.size, 0, 0, Math.PI * 2);
+            ctx.fill();
+          } else {
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+          }
+        }
+        ctx.restore();
+      }
+
+      function animCanvas() {
+        ctx.clearRect(0, 0, W, H);
+        particles.forEach((p, i) => {
+          p.y += p.vy;
+          p.x += p.vx + Math.sin(p.y * 0.012) * 0.3;
+          p.angle += p.spin;
+          drawParticle(p);
+          if (p.y > H + 20) particles[i] = mkParticle({ x: Math.random() * W });
+        });
+        requestAnimationFrame(animCanvas);
+      }
+      animCanvas();
+
+      /* ══ FLOW ══ */
+      function openFromQr() {
+        document.getElementById("qrPage").classList.add("hide");
+        setTimeout(
+          () => document.getElementById("opening").classList.add("show"),
+          600,
+        );
+      }
+
+      function startExperience() {
+        const op = document.getElementById("opening");
+        op.classList.remove("show");
+        op.classList.add("hide");
+        document.body.classList.remove("locked");
+        document
+          .getElementById("music")
+          .play()
+          .catch(() => {});
+        setTimeout(typeWriter, 800);
+        spawnHearts();
+        showToast(
+          "🎉",
+          "Selamat Ulang Tahun!",
+          "Semoga hari ini penuh kebahagiaan, Emi ❤️",
+        );
+        setTimeout(
+          () =>
+            showToast(
+              "🌸",
+              "Enjoy the surprise",
+              "Scroll ke bawah untuk kejutan selanjutnya~",
+            ),
+          3200,
+        );
+      }
+
+      /* ══ TYPEWRITER ══ */
+      let typeIdx = 0;
+      function typeWriter() {
+        const el = document.getElementById("typingText");
+        if (typeIdx < BIRTHDAY_TEXT.length) {
+          el.innerHTML += BIRTHDAY_TEXT.charAt(typeIdx);
+          typeIdx++;
+          setTimeout(typeWriter, 38);
+        }
+      }
+
+      /* ══ FLOATING HEARTS ══ */
+      const HEART_LIST = ["❤️", "💗", "💕", "💖", "💘", "🌸"];
+      function createHeart() {
+        const h = document.createElement("div");
+        h.className = "floating-heart";
+        h.innerHTML = HEART_LIST[Math.floor(Math.random() * HEART_LIST.length)];
+        h.style.left = Math.random() * 100 + "vw";
+        h.style.fontSize = 10 + Math.random() * 18 + "px";
+        h.style.animationDuration = 5 + Math.random() * 5 + "s";
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 10500);
+      }
+      function spawnHearts() {
+        setInterval(createHeart, 700);
+      }
+
+      /* ══ COUNTER ══ */
+      function updateCounter() {
+        const diff = Date.now() - RELATION_DATE;
+        document.getElementById("cnt-days").textContent = Math.floor(
+          diff / 864e5,
+        );
+        document.getElementById("cnt-hours").textContent =
+          Math.floor(diff / 36e5) % 24;
+        document.getElementById("cnt-mins").textContent =
+          Math.floor(diff / 6e4) % 60;
+      }
+      updateCounter();
+      setInterval(updateCounter, 6e4);
+
+      /* ══ WISHES MARQUEE ══ */
+      const WISHES = [
+        { icon: "🌸", text: "Kebahagiaan yang tak terbatas" },
+        { icon: "✨", text: "Semua impian jadi kenyataan" },
+        { icon: "💖", text: "Kesehatan yang sempurna" },
+        { icon: "🌙", text: "Kedamaian di setiap malam" },
+        { icon: "🎯", text: "Sukses di setiap langkah" },
+        { icon: "🌊", text: "Hidup setenang lautan" },
+        { icon: "🌹", text: "Cinta yang selalu hangat" },
+        { icon: "☀️", text: "Pagi yang selalu cerah" },
+        { icon: "💫", text: "Semangat yang tak pernah padam" },
+        { icon: "🦋", text: "Kebebasan menjadi dirimu" },
+        { icon: "🎂", text: "Usia yang penuh berkah" },
+        { icon: "💌", text: "Selalu dicintai dengan tulus" },
+      ];
+      const track = document.getElementById("marqueeTrack");
+      [...WISHES, ...WISHES].forEach((w) => {
+        const el = document.createElement("div");
+        el.className = "wish-pill";
+        el.innerHTML = `<span class="wish-pill-icon">${w.icon}</span><span class="wish-pill-text">${w.text}</span>`;
+        track.appendChild(el);
+      });
+
+      /* ══ CONFETTI ══ */
+      const CONF_COLORS = [
+        "#ff4f91",
+        "#ffd166",
+        "#ffffff",
+        "#a78bfa",
+        "#60a5fa",
+        "#ff9abb",
+      ];
+      function createConfetti() {
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.background =
+          CONF_COLORS[Math.floor(Math.random() * CONF_COLORS.length)];
+        c.style.animationDuration = 2 + Math.random() * 3 + "s";
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 5000);
+      }
+
+      /* ══ FINAL SURPRISE ══ */
+      function finalSurprise() {
+        for (let i = 0; i < 120; i++) setTimeout(createConfetti, i * 18);
+        for (let i = 0; i < 50; i++) setTimeout(createHeart, i * 25);
+        setTimeout(() => {
+          document.getElementById("loveModal").classList.add("active");
+          document.body.classList.add("locked");
+        }, 500);
+      }
+      function closeLoveModal() {
+        document.getElementById("loveModal").classList.remove("active");
+        document.body.classList.remove("locked");
+      }
+
+      /* ══ TOAST ══ */
+      function showToast(icon, title, sub, dur = 4200) {
+        const tc = document.getElementById("toastContainer");
+        const el = document.createElement("div");
+        el.className = "toast";
+        el.innerHTML = `
+    <div class="toast-icon">${icon}</div>
+    <div class="toast-body">
+      <div class="toast-title">${title}</div>
+      ${sub ? `<div class="toast-sub">${sub}</div>` : ""}
+    </div>
+    <button class="toast-x" onclick="dismissToast(this.parentElement)">×</button>
+    <div class="toast-bar"></div>`;
+        tc.appendChild(el);
+        setTimeout(() => dismissToast(el), dur);
+      }
+      function dismissToast(el) {
+        if (!el || el.classList.contains("hide")) return;
+        el.classList.add("hide");
+        setTimeout(() => el.remove(), 420);
+      }
+
+      /* ══ SCROLL REVEAL ══ */
+      const ro = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.15 },
+      );
+      document
+        .querySelectorAll(".reveal,.reveal-left,.reveal-right")
+        .forEach((el) => ro.observe(el));
+
+      /* ══ HIDE SCROLL CUE ══ */
+      window.addEventListener(
+        "scroll",
+        () => {
+          const s = document.querySelector(".hero-scroll");
+          if (s) s.style.opacity = window.scrollY > 60 ? "0" : "1";
+        },
+        { passive: true },
+      );
+    </script>
+  </body>
+</html>
