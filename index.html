@@ -1191,39 +1191,100 @@
       }
 
       /* ══════════════════════════════
-   RESPONSIVE
+   MOBILE-FIRST BASE
 ══════════════════════════════ */
-      @media (max-width: 700px) {
-        section {
-          padding: 75px 18px;
-        }
-        .gallery {
-          grid-template-columns: repeat(2, 1fr);
-          gap: 12px;
-        }
-        .gallery .photo:last-child {
-          grid-column: span 2;
-          width: 58%;
-          margin: 0 auto;
-        }
-        .letter {
-          padding: 28px 22px;
-        }
-        .counter-grid {
-          gap: 8px;
-        }
-        .counter-box {
-          padding: 26px 8px;
-        }
-        .love-modal-content {
-          padding: 40px 22px 28px;
-          border-radius: 26px;
-        }
+      html { -webkit-text-size-adjust:100%; text-size-adjust:100%; scroll-padding-top:20px; }
+      body { min-width:0; overscroll-behavior-x:none; }
+      button { min-height:44px; -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
+      section { padding:clamp(64px,12vw,100px) 16px; }
+      .container { width:100%; max-width:100%; margin:0 auto; }
+      .section-title { margin-bottom:34px; }
+      .section-title h2 { font-size:clamp(34px,10vw,65px); line-height:1.05; }
+
+      #qrPage,#opening { padding:max(18px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(18px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left)); }
+      .qr-card { max-width:390px; padding:28px 18px 24px; border-radius:26px; }
+      .qr-card h1 { font-size:clamp(33px,10vw,46px); }
+      .qr-card > p { font-size:12px; line-height:1.75; margin-bottom:20px; }
+      .qr-box { width:min(64vw,200px); height:min(64vw,200px); min-width:170px; min-height:170px; padding:10px; margin-bottom:18px; }
+      .qr-open-btn,.start-btn { width:100%; max-width:280px; }
+
+      .opening-content { width:100%; max-width:420px; }
+      .opening-emoji { font-size:clamp(54px,17vw,72px); margin-bottom:18px; }
+      .opening-content h2 { font-size:clamp(40px,12vw,70px); line-height:.96; }
+      .opening-sub { font-size:13px; line-height:1.8; margin-bottom:24px; }
+
+      .hero { min-height:100svh; min-height:100dvh; padding:80px 18px max(80px,env(safe-area-inset-bottom)); }
+      .hero-content { width:100%; max-width:960px; }
+      .hero-badge { max-width:92%; justify-content:center; text-align:center; font-size:9px; letter-spacing:2px; line-height:1.5; padding:7px 13px; margin-bottom:22px; }
+      .hero h1 { font-size:clamp(54px,17vw,140px); line-height:.9; margin-bottom:24px; }
+      .hero-name { font-size:clamp(2rem,10vw,3.5rem); line-height:1.05; margin-top:6px; }
+      .hero-sub { width:min(100%,560px); font-size:13px; line-height:1.8; min-height:0; }
+      .hero-scroll { bottom:max(1.4rem,env(safe-area-inset-bottom)); }
+      .hero-scroll-label { font-size:8px; letter-spacing:.25em; }
+      .hero-scroll-line { height:34px; }
+
+      .letter { width:100%; padding:28px 20px; border-radius:24px; }
+      .letter-quote { font-size:4rem; }
+      .letter p { font-size:13px; line-height:1.95; margin-bottom:16px; }
+      .letter-signature { font-size:26px; margin-top:26px; }
+
+      .gallery { grid-template-columns:1fr; gap:22px; width:min(100%,430px); margin-inline:auto; }
+      .photo { width:100%; max-width:340px; margin-inline:auto; aspect-ratio:4/5; border-width:6px; }
+      .photo:nth-child(2),.photo:nth-child(3) { transform:rotate(0); }
+      .photo:hover { transform:scale(1.01); }
+      .photo-placeholder img,.photo > img { width:100%; height:100%; object-fit:cover; display:block; }
+
+      .counter-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+      .counter-box { min-width:0; padding:24px 8px; border-radius:18px; }
+      .counter-box strong { font-size:clamp(31px,10vw,52px); margin-bottom:6px; }
+      .counter-box span { font-size:8px; letter-spacing:1.3px; }
+
+      .marquee-wrap { width:100%; overflow:hidden; }
+      .marquee-track { gap:10px; }
+      .wish-pill { padding:9px 16px; gap:7px; }
+      .wish-pill-text { font-size:.78rem; }
+
+      .final { min-height:82svh; min-height:82dvh; padding:90px 18px max(90px,env(safe-area-inset-bottom)); }
+      .final-content { width:100%; max-width:620px; }
+      .final-heart { font-size:58px; margin-bottom:22px; }
+      .final h2 { font-size:clamp(42px,12vw,82px); line-height:1; margin-bottom:22px; }
+      .final p { font-size:13px; line-height:1.9; margin-bottom:28px; }
+      .surprise-btn { width:100%; max-width:300px; padding:14px 20px; }
+
+      .love-modal { padding:max(14px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left)); }
+      .love-modal-content { width:100%; max-width:420px; max-height:min(88svh,760px); max-height:min(88dvh,760px); overflow-y:auto; -webkit-overflow-scrolling:touch; padding:36px 20px 22px; border-radius:24px; }
+      .love-modal-close { top:11px; right:12px; width:40px; height:40px; }
+      .modal-heart { font-size:56px; margin-bottom:14px; }
+      .modal-badge { font-size:8px; letter-spacing:3px; }
+      .love-modal-content h2 { font-size:clamp(34px,10vw,54px); line-height:1; margin-bottom:18px; }
+      .modal-divider { margin-bottom:20px; }
+      .love-modal-content p { font-size:12px; line-height:1.85; margin-bottom:12px; }
+      .modal-highlight { font-size:14px !important; margin-top:18px !important; }
+      .modal-sig { font-size:18px; margin-top:18px; }
+      .modal-btn { width:100%; max-width:280px; margin-top:24px; padding:13px 18px; }
+      footer { padding:26px 16px max(26px,env(safe-area-inset-bottom)); font-size:10px; }
+
+      @media (hover:none) {
+        .qr-open-btn:hover,.start-btn:hover,.surprise-btn:hover,.modal-btn:hover,.photo:hover,.counter-box:hover { transform:none; }
       }
-      @media (max-width: 420px) {
-        .counter-grid {
-          grid-template-columns: repeat(3, 1fr);
-        }
+      @media (min-width:560px) {
+        section { padding:90px 24px; }
+        .gallery { grid-template-columns:repeat(2,minmax(0,1fr)); max-width:760px; }
+        .photo { max-width:none; }
+        .gallery .photo:last-child { grid-column:1/-1; width:min(100%,360px); }
+        .letter { padding:40px 32px; }
+        .qr-card { padding:36px 26px 30px; }
+      }
+      @media (min-width:768px) {
+        section { padding:100px 30px; }
+        .gallery { grid-template-columns:repeat(3,minmax(0,1fr)); max-width:1000px; gap:22px; }
+        .gallery .photo:last-child { grid-column:auto; width:auto; }
+        .photo { aspect-ratio:3/4; border-width:7px; }
+        .counter-grid { gap:18px; }
+        .counter-box { padding:38px 12px; border-radius:24px; }
+        .counter-box span { font-size:10px; }
+        .love-modal-content { max-width:480px; padding:50px 35px 35px; border-radius:32px; }
+        .modal-heart { font-size:68px; }
       }
     </style>
   </head>
@@ -1337,25 +1398,13 @@
         </div>
         <div class="gallery">
           <div class="photo reveal-left">
-            <div class="photo-placeholder">
-              <span>📷</span>Foto 1<br /><small style="opacity: 0.5"
-                ><img src="gambar1.jpeg"
-              /></small>
-            </div>
+            <img src="gambar1.jpeg" alt="Foto 1" loading="lazy" />
           </div>
           <div class="photo reveal">
-            <div class="photo-placeholder">
-              <span>📷</span>Foto 2<br /><small style="opacity: 0.5"
-                ><img src="gambar2.jpeg"
-              /></small>
-            </div>
+            <img src="gambar2.jpeg" alt="Foto 2" loading="lazy" />
           </div>
           <div class="photo reveal-right">
-            <div class="photo-placeholder">
-              <span>📷</span>Foto 3<br /><small style="opacity: 0.5"
-                ><img src="gambar3.jpeg"
-              /></small>
-            </div>
+            <img src="gambar3.jpeg" alt="Foto 3" loading="lazy" />
           </div>
         </div>
       </div>
