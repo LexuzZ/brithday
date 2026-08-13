@@ -1312,11 +1312,35 @@
     background-position: 50% !important;
   }
 
-  /* No automatic marquee movement on phones */
+  /* WISHES tetap berjalan di HP, tetapi jauh lebih pelan */
+  .marquee-wrap {
+    width: 100%;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      #000 7%,
+      #000 93%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      #000 7%,
+      #000 93%,
+      transparent 100%
+    );
+  }
+
   .marquee-track {
-    animation: none !important;
+    animation: marqueeScroll 38s linear infinite !important;
     width: max-content;
-    overflow: visible;
+    will-change: transform;
+  }
+
+  .wish-pill {
+    flex: 0 0 auto;
+    padding: 9px 16px;
   }
 
   /* Calm the heartbeat animations */
@@ -1763,7 +1787,7 @@
         showToast(
           "🎉",
           "Selamat Ulang Tahun!",
-          "Semoga hari ini penuh kebahagiaan, Ami ❤️",
+          "Semoga hari ini penuh kebahagiaan, Emi ❤️",
         );
         setTimeout(
           () =>
