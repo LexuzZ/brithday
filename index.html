@@ -1286,7 +1286,145 @@
         .love-modal-content { max-width:480px; padding:50px 35px 35px; border-radius:32px; }
         .modal-heart { font-size:68px; }
       }
-    </style>
+    
+/* ══════════════════════════════
+   CALM MOBILE MODE
+   Reduce continuous motion on phones
+══════════════════════════════ */
+
+@media (max-width: 767px) {
+
+  /* Keep page visually stable */
+  * {
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable the large moving background glow */
+  .hero-glow,
+  .final-glow {
+    animation: none !important;
+    opacity: 0.55 !important;
+  }
+
+  /* Keep text gradients static */
+  .gradient-text {
+    animation: none !important;
+    background-position: 50% !important;
+  }
+
+  /* No automatic marquee movement on phones */
+  .marquee-track {
+    animation: none !important;
+    width: max-content;
+    overflow: visible;
+  }
+
+  /* Calm the heartbeat animations */
+  .opening-emoji,
+  .final-heart,
+  .modal-heart {
+    animation: none !important;
+  }
+
+  /* Remove motion that can happen from touch/hover */
+  .photo,
+  .photo:nth-child(2),
+  .photo:nth-child(3),
+  .counter-box,
+  .qr-open-btn,
+  .start-btn,
+  .surprise-btn,
+  .modal-btn {
+    transition: none !important;
+  }
+
+  /* Do not move cards on touch */
+  .photo,
+  .photo:nth-child(2),
+  .photo:nth-child(3),
+  .photo:hover,
+  .counter-box:hover,
+  .qr-open-btn:hover,
+  .start-btn:hover,
+  .surprise-btn:hover,
+  .modal-btn:hover {
+    transform: none !important;
+  }
+
+  /* Make scroll indicator static */
+  .hero-scroll-line {
+    animation: none !important;
+  }
+
+  /* Particle canvas can be distracting on phones.
+     Keep it disabled while preserving the element for JS. */
+  #particleCanvas {
+    display: none !important;
+  }
+
+  /* Reduce reveal movement */
+  .reveal,
+  .reveal-left,
+  .reveal-right {
+    transform: none !important;
+    transition: opacity 0.45s ease !important;
+  }
+
+  /* The modal itself can still fade in, but without a flying motion */
+  .love-modal-content {
+    transform: none !important;
+    transition: opacity 0.35s ease !important;
+  }
+
+  /* Floating hearts: very sparse and subtle */
+  .floating-heart {
+    animation-duration: 9s !important;
+    opacity: 0.5;
+  }
+
+  /* Avoid accidental horizontal movement */
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+}
+
+/* Respect the user's OS motion preference too */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  #particleCanvas {
+    display: none !important;
+  }
+}
+
+
+
+@media (hover: hover) and (pointer: fine) {
+  .photo:hover {
+    transform: rotate(0) scale(1.05);
+  }
+
+  .counter-box:hover {
+    transform: translateY(-4px);
+  }
+
+  .qr-open-btn:hover,
+  .start-btn:hover,
+  .surprise-btn:hover,
+  .modal-btn:hover {
+    transform: translateY(-2px) scale(1.03);
+  }
+}
+</style>
   </head>
   <body class="locked">
     <canvas id="particleCanvas"></canvas>
@@ -1582,6 +1720,11 @@
       }
 
       function animCanvas() {
+        if (window.matchMedia("(max-width: 767px)").matches) {
+          ctx.clearRect(0, 0, W, H);
+          return;
+        }
+
         ctx.clearRect(0, 0, W, H);
         particles.forEach((p, i) => {
           p.y += p.vy;
@@ -1592,7 +1735,10 @@
         });
         requestAnimationFrame(animCanvas);
       }
-      animCanvas();
+
+      if (!window.matchMedia("(max-width: 767px)").matches) {
+        animCanvas();
+      }
 
       /* ══ FLOW ══ */
       function openFromQr() {
@@ -1654,6 +1800,16 @@
         setTimeout(() => h.remove(), 10500);
       }
       function spawnHearts() {
+        const isMobile = window.matchMedia("(max-width: 767px)").matches;
+
+        if (isMobile) {
+          // On mobile, show only a few hearts once so the page stays calm.
+          for (let i = 0; i < 8; i++) {
+            setTimeout(createHeart, i * 450);
+          }
+          return;
+        }
+
         setInterval(createHeart, 700);
       }
 
